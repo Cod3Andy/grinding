@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { Cats } from "../lib/cats";
+  // import { Cats } from "../lib/cats";
   export let data: PageData;
 </script>
 <section class="text-orange-500 bg-gray-950 font-body">
@@ -10,12 +10,15 @@
           <h2>Kittens</h2>
           <h3 class="text-3xl text-primary font-bold"><p>For Waytishniks...</p></h3>
         </header>
-        <div>
-          {#each Cats as cat (cat.id)}
+        <div class="grid grid-rows-3 justify-center text-black bg-green-400 text-3xl font-bold">
+          {#each data.monsters as monster (monster.cfa_url)}
+          <p>{monster.id}: {monster.name}</p>
+          {/each}
+          <!-- {#each Cats as cat (cat.id)}
             <h1>Name:{cat.name}</h1>
             <p>ID: {cat.id}</p>
             <p>URL: {cat.url}</p>
-          {/each}
+          {/each} -->
         </div>
         <div>
           <h4 class="font-bold mt-12 pb-2 border-b border-gray-600">Latest Kittens</h4>
