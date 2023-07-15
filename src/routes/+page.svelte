@@ -10,7 +10,7 @@
           <h2>Kittens</h2>
           <h3 class="text-3xl text-primary font-bold"><p>For Waytishniks...</p></h3>
         </header>
-        <div class="flex flex-row flex-wrap text-black bg-primary text-3xl font-bold">
+        <div class="flex flex-row flex-wrap justify-between text-black bg-primary text-3xl font-bold">
           <!-- {#each data.monsters as monster (monster.url)}
           <p>{monster.id}: {monster.name}</p>
           {/each} -->
