@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  // import { Cats } from "../lib/cats";
-  export let data: PageData;
+  import { Cats } from "../lib/cats";
+  // export let data: PageData;
 </script>
 <section class="text-orange-500 bg-gray-950 font-body">
   <div class="grid md:grid-cols-4 pt-32">
@@ -10,15 +10,15 @@
           <h2>Kittens</h2>
           <h3 class="text-3xl text-primary font-bold"><p>For Waytishniks...</p></h3>
         </header>
-        <div class="grid grid-rows-3 justify-center text-black bg-green-400 text-3xl font-bold">
-          {#each data.monsters as monster (monster.cfa_url)}
+        <div class="flex flex-row flex-wrap text-black bg-primary text-3xl font-bold">
+          <!-- {#each data.monsters as monster (monster.url)}
           <p>{monster.id}: {monster.name}</p>
-          {/each}
-          <!-- {#each Cats as cat (cat.id)}
-            <h1>Name:{cat.name}</h1>
-            <p>ID: {cat.id}</p>
-            <p>URL: {cat.url}</p>
           {/each} -->
+          {#each Cats as cat (cat.id)}
+            <h1>Name:{cat.breeds[0].name}</h1>
+            <p>ID: {cat.id}</p>
+            <img src= "{cat.url}" alt="cat_img" class="scale-30">
+          {/each}
         </div>
         <div>
           <h4 class="font-bold mt-12 pb-2 border-b border-gray-600">Latest Kittens</h4>
