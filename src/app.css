@@ -12,5 +12,8 @@
     @apply rounded-full py-2 px-3 text-xs font-bold cursor-pointer tracking-wider;
 }
 .kitties {
-    @apply flex flex-row flex-wrap mx-4 my-5 rounded-lg text-black bg-primary text-3xl font-bold
+    @apply flex flex-row flex-wrap mx-4 my-5 rounded-lg text-black bg-primary-100 text-3xl font-bold
+}
+.cool_button {
+    @apply button text-primary-100 border-primary-100 md:border-2
 }
