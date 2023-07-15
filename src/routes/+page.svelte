@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { Cats } from "../lib/cats";
-  // export let data: PageData;
+  // import { Cats } from "../lib/cats";
+  export let data: PageData;
 </script>
 <section class="text-orange-500 bg-gray-950 font-body">
   <div class="grid md:grid-cols-4 pt-32">
@@ -10,22 +10,23 @@
           <h2>Kittens</h2>
           <h3 class="text-3xl text-primary font-bold"><p>For Waytishniks...</p></h3>
         </header>
-        <div class="flex flex-row flex-wrap justify-between text-black bg-primary text-3xl font-bold">
-          <!-- {#each data.monsters as monster (monster.url)}
-          <p>{monster.id}: {monster.name}</p>
-          {/each} -->
-          {#each Cats as cat (cat.id)}
-            <h1>Name:{cat.breeds[0].name}</h1>
-            <p>ID: {cat.id}</p>
-            <img src= "{cat.url}" alt="cat_img" class="scale-30">
+        <div class="kitties ">
+          {#each data.kittens as kitten (kitten.id)}
+          <div class="card h-42 w-48 ml-12 my-3 hover:scale-110 transition ease-out duration-450">
+            <img src= "{kitten.url}" alt="cat_img" class="h-[80%] w-[100%] object-fit">
+            <div class="m-2">
+              <span class="block text-grey-500 text-lg">Name: {kitten.id}</span>
+              <span class="block text-grey-500 text-sm">{kitten.breeds[0].name}</span>
+            </div>
+          </div>
           {/each}
         </div>
         <div>
           <h4 class="font-bold mt-12 pb-2 border-b border-gray-600">Latest Kittens</h4>
-            <div class="mt-8 ml-3 mr-3 grid lg:grid-cols-4 gap-5">
+            <div class="mt-8 mx-3 grid lg:grid-cols-4 gap-5">
             <!-- cards go here -->
             <div class="card hover:scale-110 transition ease-out duration-450"> 
-              <img src="img/deranged_cat.jpg" alt="Deranged Cat" class="w-full h-32 sm:h-48 object-cover">
+              <img src="img/deranged_cat.jpg" alt="Deranged Cat" class="w-full object-cover">
               <div class="m-2">
                 <span class="font-bold">Deranged Cat</span>
                 <span class="block text-grey-500 text-sm">by Silly Billy</span>
