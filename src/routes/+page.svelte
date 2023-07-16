@@ -54,7 +54,7 @@
             <img src= "{kitten.url}" alt="cat_img" class="h-[80%] w-[100%] object-fit">
             <div class="m-2">
               <span class="block text-grey-500 text-base">Name: {kitten.id}</span>
-              <span class="block text-grey-500 text-sm">Breed: {kitten.breeds[0].name}</span>
+              <span class="block text-grey-500 text-sm">Breed: {kitten.breeds_name}</span>
             </div>
           </div>
           {/each}

@@ -1,4 +1,5 @@
 <script lang="ts">
-    export let CatNAME : string;
+	import type { KittenAPI } from "./+page";
+    export let CatNAME : KittenAPI;
 </script>
 Hello form {CatNAME} kitten!!
