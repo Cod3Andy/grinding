@@ -17,3 +17,6 @@
 .cool_button {
     @apply button text-primary-100 border-primary-100 md:border-2
 }
+.active {
+    @apply border-r-4 border-primary-100 pr-3;
+}

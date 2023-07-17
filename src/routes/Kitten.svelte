@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { KittenAPI } from "./+page";
-    import {page} from "$app/stores";
-    import {goto} from "$app/navigation"
-    export let kitten : KittenAPI;
-    export let isInteractive: boolean = false;
-    const updateSearchParams = (key: string, value: string) => {
-        const searchParams = new URLSearchParams($page.url.searchParams);
-        searchParams.set(key, value);
-        goto(`?&${searchParams.toString()}`);
+  import {page} from "$app/stores";
+  import {goto} from "$app/navigation"
+  export let kitten : KittenAPI;
+  export let isInteractive: boolean = false;
+  const updateSearchParams = (key: string, value: string) => {
+    const searchParams = new URLSearchParams($page.url.searchParams);
+    searchParams.set(key, value);
+    goto(`?&${searchParams.toString()}`);
 }
 </script>
 <div class="kitties ">
