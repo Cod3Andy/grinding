@@ -2,8 +2,14 @@
 	import type { KittenAPI } from "./+page";
   import {page} from "$app/stores";
   import {goto} from "$app/navigation"
+  import { likedCats } from "$lib/stores";
   export let kitten : KittenAPI;
   export let isInteractive: boolean = false;
+  // const likeCats = () => {
+  //   likedCats.update((kittens)) => {
+  //     return [...kittens, kitten]
+  //   }
+  // }
   const updateSearchParams = (key: string, value: string) => {
     const searchParams = new URLSearchParams($page.url.searchParams);
     searchParams.set(key, value);
