@@ -1,73 +1,115 @@
 <script lang="ts">
-    import cover1 from "/Covers/Begin_again_Vera_Keyes.jpg";
-    import cover2 from "/Covers/Beyond_the_Sea.jpg";
-    import cover3 from "/Covers/Put_Your_Head_On_My_Shoulder.jpg";
-    import track1 from "/Music/Begin_again_Vera_Keyes.mp3";
-    import track2 from "/Music/Beyond_the_Sea.mp3";
-    import track3 from "/Music/Put_Your_Head_On_My_Shoulder.mp3";
-    let trackPlaying: boolean = false;
-    let volumeMuted: boolean = false;
-    let volume: number = 0.5;
-    let volumeSliderValue: number = 0;
-    let maxVolume: number = 100;
-    let trackId: number = 0;
-    let audioPlayer;
-    let timeline: number = 0;
-    let sliderValue: number = 0;
-    let duration :number;
-    let trackLoaded: boolean = false;
-    let audioSrc: any;
-    let min: number;
-    const tracks = [track1, track2, track3];
-    const trackNames = ["Begin again", "Put your head on my shoulder", "Beyond the sea"];
-    const artists = ["Vera Keyes", "Paul Anka", "Bobby Darin"];
-    const covers = [cover1, cover2, cover3];
-
-</script>
+    let tracks: [] = []
+    let songIndex: number = 0
+    let audio: HTMLAudioElement
+    let isPlaying: boolean = false
+    let volume: number = 0.5
+    let progress: number = 0
+    function fileInput(event) {
+        const file = event.target.files[0];
+        audio = new Audio();
+        audio.src = URL.createObjectURL(file);
+        tracks.push(file)
+        console.log(tracks, 'test')
+    }
+    function playAudio() {
+        isPlaying = true;
+        audio.play()
+    }
+    function pauseAudio() {
+        isPlaying = false;
+        audio.pause()
+    }
+    function audioDuration() {
+        audio.duration
+    }
+function updateProgress() {
+    if (audio) {
+        progress = audio.currentTime / audio.duration * 100
+    }
+}
+    function volumeControl() {
+        if (audio) {
+            audio.volume = volume
+        }
+    }
+    function muteAudio() {
+        audio.volume > 0 ? (audio.volume = 0) : (audio.volume = 0.5)
+    }
+    function loopAudio () {
+    audio.loop === true ? audio.loop = false : audio.loop = true
+    playAudio()
+}
+    function prevAudio () {
+        songIndex--
+        if(songIndex < 0) {
+            songIndex = tracks.length - 1
+        }
+        tracks[songIndex]
+        // audio.currentTime = 0
+        playAudio()
+    }
+    function nextAudio () {
+        songIndex++
+        if(songIndex > tracks.length - 1) {
+            songIndex = 0
+        }
+        tracks[songIndex]
+        // audio.currentTime = 0
+        playAudio()
+    }
+</script>	
 <player class="player">
-    <h1>Ol' Music Player</h1>
-    <div class="music-container">
-        <div class="music-info">
-            <h4 id="title">{trackNames[trackId]} - {artists[trackId]}</h4>
-            <div class="current-time">00:00</div><div class="total-duration">00:00</div>
-            <div class="progress-container">
-                <div class="progress"></div>
-                <input type="range" min={min} max={duration} class="seek-slider" bind:value={sliderValue}>
-                <seek-slider min={0} {timeline} {trackLoaded} {duration} {sliderValue} />
+    <h1 class="z-10 font-mono text-4xl ">Ol' Music Player</h1>
+    <img src="img/gramophone.png" alt="" class="gramophone">
+        <div class="music-container {isPlaying? 'play': ''}">
+            <div class="music-info">
+                <h4 id="title"></h4>
+                <div class="current-time">00:00</div><div class="total-duration">00:00{audioDuration}</div>
+                <div class="progress-container">
+                    <div class="progress"></div>
+                    <input type="range" min={0} max={100} step={1} bind:value={progress} on:change={updateProgress}>
+                    <seek-slider />
+                </div>
             </div>
-        </div>
-        <audio src={audioSrc} id="audio" bind:this={audioPlayer} bind:duration bind:currentTime={timeline} bind:volume />
-        <div class="img-container">
-            <img src="{covers[trackId]}" alt="music_cover" id="cover">
-        </div>
-        <div class="navigation">
-            <button id="prev" class="action-btn">
-                <i class="fas fa-backward"></i>
-            </button>
-            <button id="play" class="action-btn action-btn-big" on:click = {() => trackPlaying ? "fa-pause" : "fa-play"}>
-                <i class="fas fa-play"></i>
-            </button>
-            <button id="next" class="action-btn">
-                <i class="fas fa-forward"></i>
-            </button>
-            <button id="loop" class="action-btn">
-                <i class="fas fa-arrows-rotate"></i>
-            </button>
-            <button id="mute" class="action-btn">
-                <i class="fas fa-volume-mute"></i>
-            </button>
-            <div class="Volume">
-                <div class="slider">
-                    <!-- <input type="range" min="0" max="100" value="100" class="volume-slider"> -->
-                    <volume-slider min={0} max={maxVolume} {volume} {volumeSliderValue}/>
-                    <div class="progress" style="width: {volume * 100}%"> </div>
-                    <div class="sliderValue"></div>
+            <audio src='' id="audio" />
+            <div class="img-container">
+                <img src="img/vinyl_disk.png" alt="music_cover" id="cover">
+            </div>
+            <div class="navigation">
+                <button id="prev" class="action-btn" on:click={prevAudio}>
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button id="play" class="action-btn action-btn-big" on:click={isPlaying? pauseAudio : playAudio}>
+                    <i class="fas {isPlaying? 'fa-pause' : 'fa-play'}"></i>
+                </button>
+                <button id="next" class="action-btn" on:click={nextAudio}>
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button id="loop" class="action-btn" on:click={loopAudio}>
+                    <i class="fas fa-arrows-rotate"></i>
+                </button>
+                <button id="mute" class="action-btn" on:click={muteAudio}>
+                    <i class="fas fa-volume-mute"></i>
+                </button>
+                <div class="Volume">
+                    <div class="slider">
+                        <input type="range" min={0} max={1} step={0.01} bind:value={volume} on:change={volumeControl}>
+                        <volume-slider/>
+                        <!-- <div class="progress" style="width: {volume * 100}%"> </div> -->
+                        <p>{volume*100}%</p>
+                    </div>
+                    <input multiple type="file" class="cool_button" on:input={fileInput} accept="audio"/>
                 </div>
             </div>
         </div>
-        <div class="playlist">
-            
+        <div>
+        {#if tracks}
+            <h2>Selected files:</h2>
+            {#each Array.from(tracks) as track}
+                <p>{track.name} ({track} bytes)</p>
+            {/each}
+        {/if}
+        number of elements is {tracks.length}
         </div>
-    </div>
-        <script src="script.js"></script>
 </player>
